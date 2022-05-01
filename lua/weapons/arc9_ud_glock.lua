@@ -182,8 +182,8 @@ SWEP.ActivePos				= Vector(0.2, -1, 1)
 SWEP.ActiveAng				= Angle(0, 0, -5)
 
 SWEP.CustomizeAng			= Angle(90, 0, 0)
-SWEP.CustomizePos			= Vector(20, 32, 4)
-SWEP.CustomizeSnapshotFOV	= 110
+SWEP.CustomizePos			= Vector(16, 22, 6)
+SWEP.CustomizeSnapshotFOV	= 70
 
 -------------------------- HoldTypes
 
@@ -742,7 +742,7 @@ SWEP.Attachments = {
 		Bone							= "glock_parent",
 		Pos								= Vector(0, 0, 0),
 		Ang								= Angle(0, 0, 0),
-		Icon_Offset						= Vector(0, -2.5, 3)
+		Icon_Offset						= Vector(0, -2.33, 4)
 	},
 	{
 		PrintName						= "CALIBER",
@@ -752,7 +752,7 @@ SWEP.Attachments = {
 		Bone							= "glock_parent",
 		Pos								= Vector(0, 0, 0),
 		Ang								= Angle(0, 0, 0),
-		Icon_Offset						= Vector(0, -2.5, 1)
+		Icon_Offset						= Vector(0, -2.33, 2)
 	},
 	{
 		PrintName						= "MAG",
@@ -773,6 +773,16 @@ SWEP.Attachments = {
 		Bone							= "glock_flash",
 		Pos								= Vector(0, 0, 0),
 		Ang								= Angle(0, 0, 0),
+		Icon_Offset						= Vector(0, 0, 0)
+	},
+	{
+		PrintName						= "OPTIC",
+		DefaultName						= "Optic",
+		DefaultCompactName				= "OPTIC",
+		Category						= "optic_picatinny_small",
+		Bone							= "glock_slide",
+		Pos								= Vector(0, -0.67, -0.67),
+		Ang								= Angle(90, 0, -90),
 		Icon_Offset						= Vector(0, 0, 0)
 	},
 	{
