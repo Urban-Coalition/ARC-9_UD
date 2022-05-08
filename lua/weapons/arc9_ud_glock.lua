@@ -50,10 +50,6 @@ SWEP.WorldModelOffset = {
 
 SWEP.DefaultBodygroups		= "0000000000000000000000"
 
-SWEP.SpreadMultHipFire				= 3
-SWEP.RecoilMultHipFire				= 1.25
-SWEP.RecoilAutoControlMultHipFire	= 0.5
-
 -------------------------- DAMAGE PROFILE
 
 SWEP.DamageMax				= 27 -- Damage done at point blank range
@@ -111,27 +107,35 @@ SWEP.PostBashTime				= 0.5
 -------------------------- RECOIL
 
 -- General recoil multiplier
-SWEP.Recoil				= 1
+SWEP.Recoil				= 0.4
 
 -- Static increasing recoil
 SWEP.RecoilUp				= 0.5
 SWEP.RecoilSide				= 0.2
 
 -- Unpredictable circle recoil
-SWEP.RecoilRandomUp			= 1
-SWEP.RecoilRandomSide		= 1
+SWEP.RecoilRandomUp			= 0.1
+SWEP.RecoilRandomSide		= 0.4
 
-SWEP.RecoilDissipationRate	= 50 -- How much recoil dissipates per second.
-SWEP.RecoilResetTime		= 0.01 -- How long the gun must go before the recoil pattern starts to reset.
+SWEP.RecoilDissipationRate	= 15 -- How much recoil dissipates per second.
+SWEP.RecoilResetTime		= 0.1 -- How long the gun must go before the recoil pattern starts to reset.
 
-SWEP.RecoilAutoControl		= 0.01
+SWEP.RecoilAutoControl		= 0
 
-SWEP.RecoilKick				= 1
+SWEP.RecoilKick				= 0.1
+SWEP.RecoilPatternDrift		= 5000
+
+SWEP.RecoilMultHipFire				= 1.25
+SWEP.RecoilAutoControlMultHipFire	= 0.5
 
 -------------------------- SPREAD
 
-SWEP.Spread				= 0.002
-SWEP.SpreadAddRecoil	= 0.0002 -- Applied per unit of recoil.
+SWEP.Spread				= math.rad(1)
+
+SWEP.SpreadMultHipFire				= 2
+SWEP.SpreadMultMidAir				= 2
+SWEP.SpreadMultMove					= 2
+SWEP.SpreadMultCrouch				= 0.5
 
 -------------------------- HANDLING
 
@@ -239,20 +243,6 @@ SWEP.FiremodeSound				= "arc9/firemode.wav"
 local ci = CHAN_AUTO
 local ratel = {path .. "pistol_rattle_1.ogg", path .. "pistol_rattle_2.ogg", path .. "pistol_rattle_3.ogg"}
 local rottle = {common .. "cloth_2.ogg", common .. "cloth_3.ogg", common .. "cloth_4.ogg", common .. "cloth_6.ogg", common .. "rattle.ogg"}
-
-SWEP.Hook_TranslateAnimation				= function(swep, anim)
-	local elements				= swep:GetElements()
-
-	if elements["m16_mag_20"] then
-		return anim .. "_20"
-	elseif elements["m16_mag_40"] then
-		return anim .. "_40"
-	elseif elements["m16_mag_60"] then
-		return anim .. "_60"
-	elseif elements["m16_mag_100"] then
-		return anim .. "_100"
-	end
-end
 
 SWEP.ReloadInSights				= true -- This weapon can aim down sights while reloading.
 
@@ -511,17 +501,22 @@ SWEP.Animations = {
 		},
 		EventTable = {
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
+			{v1	= 10000, v2	= 20000, vt	= 0.3,	t = 0.9},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
+			{FOV = -6,
+			FOV_Start = 1.4,
+			FOV_End = 1.7,
+			FOV_FuncStart = ARC9.Ease.OutCirc,
+			FOV_FuncEnd = ARC9.Ease.InCirc,	t = 0},
 			{s = rottle,									t = 0},
 			{s = common .. "magpouch_pull_small.ogg",		t = 0.075},
 			{s = rattel,									t = 0.3},
 			{s = path .. "magout_partial.ogg",				t = 0.3, c = ci},
-			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
 			{s = rattel,									t = 0.35},
 			{s = path .. "magin_new.ogg",					t = 0.49, c = ci},
-			{v1	= 10000, v2	= 20000, vt	= 0.3,	t = 0.9},
 			{s = rottle,									t = 0.5},
 			{s = common .. "magpouch_replace_small.ogg",	t = 1.25},
-			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
 		},
 	},
 	["reload_empty"] = {
@@ -554,20 +549,170 @@ SWEP.Animations = {
 		},
 		EventTable = {
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
+			{v1	= 10000, v2	= 20000, vt	= 0.1,	t = 0.9},
+			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.7},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
+			{FOV = -6,
+			FOV_Start = 1.8,
+			FOV_End = 2.4,
+			FOV_FuncStart = ARC9.Ease.OutCirc,
+			FOV_FuncEnd = ARC9.Ease.InCirc,	t = 0},
+			{FOV = 6,
+			FOV_Start = 0.2,
+			FOV_End = 0.4,
+			FOV_FuncStart = ARC9.Ease.OutCirc,
+			FOV_FuncEnd = ARC9.Ease.InCirc,	t = 1.8},
 			{s = rattel,								t = 0},
 			{s = path .. "magout_empty.ogg",			t = 0.13, c = ci},
 			{s = common .. "magpouch_pull_small.ogg",	t = 0.35},
-			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
 			{s = rattel,								t = 0.5},
 			{s = path .. "magin_new.ogg",				t = 0.55, c = ci},
-			{v1	= 10000, v2	= 20000, vt	= 0.1,	t = 0.9},
 			{s = common .. "pistol_magdrop.ogg",		t = 0.65},
 			{s = rattel,								t = 1.2},
 			{s = path .. "sliderel_deact.ogg",			t = 1.62, c = ci},
-			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.7},
 			{s = path .. "chamber.ogg",					t = 1.85, c = ci},
 			{s = rottle,								t = 1.9},
+		},
+	},
+	["reload_empty_flared"] = {
+		Source				= "reload_empty",
+		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
+		Time				= 65 / 30,
+		MinProgress				= 1.5,
+		LastClip1OutTime				= 0.7,
+		IKTimeLine = {
+			{
+				t				= 0,
+				lhik				= 1,
+				rhik				= 1
+			},
+			{
+				t				= 0.2,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 0.75,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 1,
+				lhik				= 1,
+				rhik				= 1
+			},
+		},
+		EventTable = {
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
+			{v1	= 10000, v2	= 20000, vt	= 0.1,	t = 0.9},
+			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.7},
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
+			{FOV = -3,
+			FOV_Start = 0.2,
+			FOV_End = 0.4,
+			FOV_FuncStart = ARC9.Ease.OutCirc,
+			FOV_FuncEnd = ARC9.Ease.InCirc,	t = 1.39},
+            {s = rattel,								t = 0},
+            {s = path .. "magout_empty.ogg",			t = 0.13, c = ci},
+            {s = common .. "magpouch_pull_small.ogg",	t = 0.35},
+            {s = path .. "magin_new.ogg",				t = 0.55, c = ci},
+            {s = rattel,								t = 0.5},
+            {s = common .. "pistol_magdrop.ogg",		t = 0.65},
+            {s = rottle,								t = 1.15},
+            {s = path .. "chamber.ogg",					t = 1.39, c = ci},
+		},
+	},
+
+	-- 10 Round Reloads --
+
+	["reload_10"] = {
+		Source				= "reload_10",
+		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
+		Time				= 56 / 30,
+		MinProgress				= 1.1,
+		LastClip1OutTime				= 0.9,
+		IKTimeLine = {
+			{
+				t				= 0,
+				lhik				= 1,
+				rhik				= 1
+			},
+			{
+				t				= 0.2,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 0.75,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 1,
+				lhik				= 1,
+				rhik				= 1
+			},
+		},
+		EventTable = {
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
+			{v1	= 10000, v2	= 20000, vt	= 0.3,	t = 0.9},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
+			{s = rattel,									t = 0},
+			{s = common .. "magpouch_pull_small.ogg",		t = 0.025, c = ci},
+			{s = rattel,									t = 0.3},
+			{s = path .. "magrelease.ogg",					t = 0.2, c = ci},
+			{s = path .. "magout_partial.ogg",				t = 0.2, c = ci},
+			{s = path .. "magin_new.ogg",					t = 0.35, c = ci},
+			{s = common .. "magpouch_replace_small.ogg",	t = 1.2},
+			{s = rottle,									t = 0.65},
+		},
+	},
+	["reload_empty_10"] = {
+		Source				= "reload_empty_10",
+		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
+		Time				= 65 / 30,
+		MinProgress				= 1.5,
+		LastClip1OutTime				= 0.7,
+		IKTimeLine = {
+			{
+				t				= 0,
+				lhik				= 1,
+				rhik				= 1
+			},
+			{
+				t				= 0.2,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 0.75,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 1,
+				lhik				= 1,
+				rhik				= 1
+			},
+		},
+		EventTable = {
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
+			{v1	= 10000, v2	= 20000, vt	= 0.1,	t = 0.9},
+			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.7},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
+			{s = rattel,								t = 0},
+			{s = path .. "magrelease.ogg",				t = 0.15, c = ci},
+			{s = path .. "magout_empty.ogg",			t = 0.1, c = ci},
+			{s = common .. "magpouch_pull_small.ogg",	t = 0.3, c = ci},
+			{s = path .. "magin_new.ogg",				t = 0.45, c = ci},
+			{s = rattel,								t = 0.5},
+			{s = common .. "pistol_magdrop.ogg",		t = 0.65},
+			{s = rottle,								t = 0.9},
+			{s = path .. "chamber.ogg",					t = 1.35, c = ci},
 		},
 	},
 
@@ -603,17 +748,17 @@ SWEP.Animations = {
 		},
 		EventTable = {
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
+			{v1	= 5000, v2	= 20000, vt	= 0.1,	t = 0.9},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
 			{s = rottle,									t = 0},
 			{s = common .. "magpouch.ogg",					t = 0.05},
 			{s = rattel,									t = 0.3},
 			{s = path .. "magrelease.ogg",					t = 0.4, c = ci},
 			{s = path .. "magout_partial.ogg",				t = 0.4, c = ci},
-			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
 			{s = path .. "magin_new.ogg",					t = 0.55, c = ci},
-			{v1	= 5000, v2	= 20000, vt	= 0.1,	t = 0.9},
 			{s = rottle,									t = 0.75},
 			{s = common .. "magpouchin.ogg",				t = 1.25, v = .35},
-			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
 		},
 	},
 	["reload_empty_33"] = {
@@ -646,19 +791,107 @@ SWEP.Animations = {
 		},
 		EventTable = {
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
+			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.4},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
 			{s = rattel,								t = 0},
 			{s = path .. "magrelease.ogg",				t = 0.16, c = ci},
 			{s = path .. "magout_empty.ogg",			t = 0.16, c = ci},
 			{s = common .. "magpouch.ogg",				t = 0.35, c = ci},
-			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
 			{s = rattel,								t = 0.5},
 			{s = path .. "magin_new.ogg",				t = 0.55, c = ci},
 			{v1	= 10000, v2	= 10000, vt	= 0.1,			t = 0.9},
 			{s = common .. "pistol_magdrop.ogg",		t = 0.65},
 			{s = rottle,								t = 1.3},
 			{s = path .. "chamber.ogg",					t = 1.42, c = ci},
+		},
+	},
+
+	-- 100 Round Reloads --
+
+	["reload_100"] = {
+		Source				= "reload_100",
+		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
+		Time				= 56 / 30,
+		MinProgress				= 1.3,
+		LastClip1OutTime				= 0.9,
+		IKTimeLine = {
+			{
+				t				= 0,
+				lhik				= 1,
+				rhik				= 1
+			},
+			{
+				t				= 0.2,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 0.75,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 1,
+				lhik				= 1,
+				rhik				= 1
+			},
+		},
+		EventTable = {
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.35},
+			{v1	= 5000, v2	= 20000, vt	= 0.1,	t = 0.9},
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 1.55},
+            {s = rattel,								t = 0},
+            {s = path .. "magrelease.ogg",				t = 0.3, c = ci},
+            {s = path .. "magout.ogg",					t = 0.3, c = ci},
+            {s = rattel,								t = 0.7},
+            {s = path .. "magin.ogg",					t = 0.7, c = ci},
+            {s = rottle,								t = 1.1},
+		},
+	},
+	["reload_empty_100"] = {
+		Source				= "reload_empty_100",
+		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
+		Time				= 66 / 30,
+		MinProgress				= 1.5,
+		LastClip1OutTime				= 0.7,
+		IKTimeLine = {
+			{
+				t				= 0,
+				lhik				= 1,
+				rhik				= 1
+			},
+			{
+				t				= 0.2,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 0.75,
+				lhik				= 0,
+				rhik				= 0
+			},
+			{
+				t				= 1,
+				lhik				= 1,
+				rhik				= 1
+			},
+		},
+		EventTable = {
+			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
+			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
 			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.4},
 			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
+            {s = rattel,								t = 0},
+            {s = path .. "magrelease.ogg",				t = 0.12, c = ci},
+            {s = path .. "magout.ogg",					t = 0.12, c = ci},
+            {s = path .. "magin.ogg",					t = 0.5, c = ci},
+            {s = common .. "magdrop.ogg",				t = 0.55},
+            {s = rattel,								t = 0.7},
+            {s = path .. "sliderel_deact.ogg",			t = 1.33, c = ci},
+            {s = path .. "chamber.ogg",					t = 1.525, c = ci},
+            {s = rottle,								t = 1.6},
 		},
 	},
 }
@@ -669,6 +902,11 @@ SWEP.AttachmentElements = {
 	["ud_glock_slide_auto"] = {
 		Bodygroups = {
 			{3, 3}
+		}
+	},
+	["ud_glock_slide_cs"] = {
+		Bodygroups = {
+			{3, 6}
 		}
 	},
 	["ud_glock_slide_lb"] = {
@@ -728,6 +966,8 @@ SWEP.Hook_TranslateAnimation				= function(swep, anim)
 		return anim .. "_33"
 	elseif elements["ud_glock_mag_100"] then
 		return anim .. "_100"
+	elseif elements["ud_glock_frame_flared"] then
+		return anim .. "_flared"
 	end
 end
 

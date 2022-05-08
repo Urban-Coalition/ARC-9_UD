@@ -26,6 +26,34 @@ ARC9.LoadAttachment(ATT, "ud_glock_slide_auto")
 
 ATT = {}
 
+ATT.PrintName							= "GEN3 Op. CS Slide"
+ATT.PrintNameTrue						= "Glock 18C Op. CS Slide"
+ATT.CompactName							= "OP.CS"
+ATT.Icon								= Material("entities/att/acwatt_ud_glock_slide_cs.png", "mips smooth")
+ATT.Description							= "Custom-made 3 round burst slide, used by various counter-terrorism units and 'agents' around the world. The standard-length magazines are also tweaked for increased capacity. These modifications make the weapon somewhat prone to jamming."
+
+ATT.Category = {"ud_glock_slide"}
+
+ATT.SpreadMult							= 1.15
+ATT.SpeedMultShooting					= 0.9
+ATT.MalfunctionOverride					= true
+ATT.ClipSizeMult						= 1.18
+ATT.FiremodesOverride = {
+	{
+		Mode = 3,
+		RPMMult = 3,
+		PostBurstDelay = 0.25,
+		RunawayBurst = true
+	},
+	{
+		Mode = 1,
+	},
+}
+
+ARC9.LoadAttachment(ATT, "ud_glock_slide_cs")
+
+ATT = {}
+
 ATT.PrintName							= "GEN3L Long Slide"
 ATT.PrintNameTrue						= "Glock 17L Long Slide"
 ATT.CompactName							= "LONG"
@@ -75,7 +103,6 @@ ATT.Icon								= Material("entities/att/acwatt_ud_glock_slide_subcompact.png", 
 ATT.Description							= "Shortest available slide, popular for concealed carry.\nReduced length means less holster to clear and improved handling, but more muzzle rise and terrible effective range."
 
 ATT.Category = {"ud_glock_slide"}
-
 ATT.RequireElements = {"ud_glock_frame_subcompact"}
 
 ATT.DrawTime							= 0.85
@@ -98,6 +125,7 @@ ATT.Icon								= Material("entities/att/acwatt_ud_glock_mag_10.png", "mips smoo
 ATT.Description							= "Low-capacity magazine for the Glock, mostly used on subcompact variants like the Glock 26. The lighter load makes the weapon even more ergonomic."
 
 ATT.Category = {"ud_glock_mag"}
+ATT.RequireElements = {"ud_glock_frame_subcompact"}
 
 ATT.AimDownSightsTimeMult				= 0.9
 ATT.ReloadTimeMult						= 0.9
@@ -306,7 +334,7 @@ ATT.RecoilMult							= 1.5
 ATT.RecoilSideMult						= 1.5
 ATT.MalfunctionMeanMult					= 0.6
 ATT.PhysBulletMuzzleVelocityOverride	= 320 / ARC9.HUToM
-ATT.ClipSizeMult						= 0.76
+ATT.ClipSizeMult						= 0.76 + 0.04 -- wtf it doesn't go right
 ATT.RPMMult								= 0.7619
 
 ATT.ShootSoundOverride					= "weapons/arccw_ud/glock/fire_45.ogg"
