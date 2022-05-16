@@ -63,8 +63,6 @@ SWEP.RangeMax				= 350 / ARC9.HUToM -- In Hammer units, how far bullets can trav
 
 SWEP.Penetration			= 14 -- Units of wood that can be penetrated by this gun.
 
--------------------------- PHYS BULLET BALLISTICS
-
 SWEP.PhysBulletMuzzleVelocity	= 25000
 
 -------------------------- MAGAZINE

@@ -9,8 +9,8 @@ SWEP.Base					= "arc9_base"
 SWEP.Spawnable				= true
 SWEP.Category				= "ARC-9 - Urban Coalition"
 
-SWEP.PrintName				= "GEN3"
-SWEP.TrueName				= "Glock 17"
+SWEP.PrintName				= "IAL-9"
+SWEP.TrueName				= "Uzi"
 
 SWEP.Class					= "Pistol"
 SWEP.Trivia = {
@@ -34,8 +34,8 @@ SWEP.Description				= [[Handgun originally designed by a curtain rod manufacture
 Great backup weapon due to its quick draw and sight times, but a relatively low damage output makes it a less than ideal primary.]]
 
 
-SWEP.ViewModel				= "models/weapons/arccw/c_ud_glock.mdl"
-SWEP.WorldModel				= "models/weapons/arccw/c_ud_glock.mdl"
+SWEP.ViewModel				= "models/weapons/arccw/c_ud_uzi.mdl"
+SWEP.WorldModel				= "models/weapons/arccw/c_ud_uzi.mdl"
 SWEP.ViewModelFOVBase		= 70
 
 SWEP.Slot					= 1
@@ -86,6 +86,9 @@ SWEP.DropMagazineTime				= 0
 
 SWEP.RPM				= 525
 SWEP.Firemodes = {
+	{
+		Mode				= -1
+	},
 	{
 		Mode				= 1
 	}
@@ -210,7 +213,7 @@ SWEP.ShellScale				= 1
 SWEP.ShellPhysBox			= Vector(0.5, 0.5, 2)
 
 SWEP.CamQCA					= 3
-SWEP.CamOffsetAng			= Angle(0, 90, 90)
+SWEP.CamOffsetAng			= Angle(0, 0, 90)
 -------------------------- SOUNDS
 
 local path					= ")^weapons/arccw_ud/glock/"
@@ -518,7 +521,7 @@ SWEP.Animations = {
 		},
 	},
 	["reload_empty"] = {
-		Source				= "reload_empty_fesiug",
+		Source				= "reload_empty",
 		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
 		Time				= 78 / 30,
 		MinProgress				= 1.5,
@@ -571,55 +574,6 @@ SWEP.Animations = {
 			{s = path .. "sliderel_deact.ogg",			t = 1.62, c = ci},
 			{s = path .. "chamber.ogg",					t = 1.85, c = ci},
 			{s = rottle,								t = 1.9},
-		},
-	},
-	["reload_empty_flared"] = {
-		Source				= "reload_empty",
-		TPAnim				= ACT_HL2MP_GESTURE_RELOAD_AR2,
-		Time				= 65 / 30,
-		MinProgress				= 1.5,
-		LastClip1OutTime				= 0.7,
-		IKTimeLine = {
-			{
-				t				= 0,
-				lhik				= 1,
-				rhik				= 1
-			},
-			{
-				t				= 0.2,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 0.75,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 1,
-				lhik				= 1,
-				rhik				= 1
-			},
-		},
-		EventTable = {
-			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 0},
-			{v1	= 10000, v2	= 10000, vt	= 0.1,	t = 0.4},
-			{v1	= 10000, v2	= 20000, vt	= 0.1,	t = 0.9},
-			{v1	= 40000, v2	= 40000, vt	= 0.2,	t = 1.7},
-			{v1	= 0, v2	= 5000, vt	= 0.1,		t = 2.1},
-			{FOV = -3,
-			FOV_Start = 0.2,
-			FOV_End = 0.4,
-			FOV_FuncStart = ARC9.Ease.OutCirc,
-			FOV_FuncEnd = ARC9.Ease.InCirc,	t = 1.39},
-            {s = rattel,								t = 0},
-            {s = path .. "magout_empty.ogg",			t = 0.13, c = ci},
-            {s = common .. "magpouch_pull_small.ogg",	t = 0.35},
-            {s = path .. "magin_new.ogg",				t = 0.55, c = ci},
-            {s = rattel,								t = 0.5},
-            {s = common .. "pistol_magdrop.ogg",		t = 0.65},
-            {s = rottle,								t = 1.15},
-            {s = path .. "chamber.ogg",					t = 1.39, c = ci},
 		},
 	},
 
