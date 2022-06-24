@@ -14,31 +14,31 @@ SWEP.TrueName				= "Uzi"
 
 SWEP.Class					= "Pistol"
 SWEP.Trivia = {
-	Manufacturer	= "Next Generation Weapons Inc.",
-	Calibre			= "9x19 Parabellum",
-	Mechanism		= "Short Recoil",
-	Country			= "Austria",
-	Year			= "1982"
+	Manufacturer	= "IAL Metal Industries",
+	Calibre			= "9x19mm Parabellum",
+	Mechanism		= "Open Bolt",
+	Country			= "Israel",
+	Year			= 1950
 }
 if ARC9:UseTrueNames() then
 	SWEP.PrintName				= SWEP.TrueName
-    SWEP.Trivia.Manufacturer	= "Glock Ges.m.b.H."
+    SWEP.Trivia.Manufacturer	= "Israeli Military Industries"
 end
 
 SWEP.Credits = {
 	Author	= "Urban Decay Team",
 }
 
-SWEP.Description				= [[Handgun originally designed by a curtain rod manufacturer for the Austrian military. Its reliable and cost-effective polymer design has since made it one of the most popular and widely used pistols in the world, common in military, police and civilian use alike.
+SWEP.Description				= [[Revolutionary submachine gun developed to arm a young State of Israel following the Second World War. Its ergonomic design, low cost, reliability, and great handling made it popular among militaries, police forces, and private security firms worldwide.
 
-Great backup weapon due to its quick draw and sight times, but a relatively low damage output makes it a less than ideal primary.]]
+Its low recoil and limited range make the weapon good at hip firing in close quarters.]]
 
 
 SWEP.ViewModel				= "models/weapons/arccw/c_ud_uzi.mdl"
 SWEP.WorldModel				= "models/weapons/arccw/c_ud_uzi.mdl"
 SWEP.ViewModelFOVBase		= 70
 
-SWEP.Slot					= 1
+SWEP.Slot					= 2
 SWEP.Crosshair				= true
 
 SWEP.MirrorVMWM				= true
@@ -67,8 +67,8 @@ SWEP.PhysBulletMuzzleVelocity	= 375 / ARC9.HUToM
 -------------------------- MAGAZINE
 
 SWEP.Ammo						= "pistol" -- What ammo type this gun uses.
-SWEP.ChamberSize				= 1 -- The amount of rounds this gun can chamber.
-SWEP.ClipSize					= 17 -- Self-explanatory.
+SWEP.ChamberSize				= 0 -- The amount of rounds this gun can chamber.
+SWEP.ClipSize					= 30 -- Self-explanatory.
 SWEP.SupplyLimit				= 6 -- Amount of magazines of ammo this gun can take from an ARC9 supply crate.
 SWEP.SecondarySupplyLimit		= 2 -- Amount of reserve UBGL magazines you can take.
 
@@ -84,7 +84,7 @@ SWEP.DropMagazineTime				= 0
 
 -------------------------- FIREMODES
 
-SWEP.RPM				= 525
+SWEP.RPM				= 600
 SWEP.Firemodes = {
 	{
 		Mode				= -1
@@ -170,7 +170,7 @@ SWEP.TracerColor			= Color(255, 225, 200) -- Color of tracers. Only works if tra
 -------------------------- POSITIONS
 
 SWEP.IronSights = {
-	Pos			= Vector(-2.3, 1, 2.52),
+	Pos			= Vector(-2.829, -6, 1.95),
 	Ang			= Angle(0.3, 0, 0),
 	Midpoint = { -- Where the gun should be at the middle of it's irons
 		Pos			= Vector(0, 15, -4),
@@ -183,8 +183,8 @@ SWEP.IronSights = {
 SWEP.SprintPos				= Vector(1, -2, -3)
 SWEP.SprintAng				= Angle(15.5, 2, -7)
 
-SWEP.ActivePos				= Vector(0.2, -1, 1)
-SWEP.ActiveAng				= Angle(0, 0, -5)
+SWEP.ActivePos				= Vector(0.4, -1.9, 0.4)
+SWEP.ActiveAng				= Angle(0, 0, -3)
 
 SWEP.CustomizeAng			= Angle(90, 0, 0)
 SWEP.CustomizePos			= Vector(16, 22, 6)
@@ -216,25 +216,13 @@ SWEP.CamQCA					= 3
 SWEP.CamOffsetAng			= Angle(0, 0, 90)
 -------------------------- SOUNDS
 
-local path					= ")^weapons/arccw_ud/glock/"
-local path1					= ")^weapons/arccw_ud/uzi/"
+
+local path					= ")^weapons/arccw_ud/uzi/"
+local path1					= ")^weapons/arccw_ud/glock/"
 local common				= ")^arccw_uc/common/"
-SWEP.ShootSound	 = {
-    path .. "fire-01.ogg",
-    path .. "fire-02.ogg",
-    path .. "fire-03.ogg",
-    path .. "fire-04.ogg",
-    path .. "fire-05.ogg",
-    path .. "fire-06.ogg"
-}
-SWEP.DistantShootSound			= {
-    path .. "fire-dist-01.ogg",
-    path .. "fire-dist-02.ogg",
-    path .. "fire-dist-03.ogg",
-    path .. "fire-dist-04.ogg",
-    path .. "fire-dist-05.ogg",
-    path .. "fire-dist-06.ogg"
-}
+SWEP.FirstShootSound			= path .. "fire.ogg"
+SWEP.ShootSound					= path .. "fire_auto.ogg"
+SWEP.DistantShootSound			= path .. "fire_dist.ogg"
 SWEP.ShootSoundSilenced			= path .. "fire_supp.ogg"
 SWEP.DistantShootSoundSilenced	= common .. "sup_tail.ogg"
 SWEP.DryFireSound				= path .. "dryfire.ogg"
