@@ -88,7 +88,7 @@ SWEP.DropMagazineTime				= 1
 SWEP.RPM				= 800
 SWEP.Firemodes = {
 	{
-		Mode				= -1,
+		Mode				= 3,
 		-- add other attachment modifiers
 	},
 	{
@@ -169,7 +169,7 @@ SWEP.TracerColor			= Color(255, 225, 200) -- Color of tracers. Only works if tra
 -------------------------- POSITIONS
 
 SWEP.IronSights = {
-	Pos			= Vector(-2.806, -3, 0.975),
+	Pos			= Vector(-2.815, -5, 1.3),
 	Ang			= Angle(0, -0.4, 0),
 	Midpoint = { -- Where the gun should be at the middle of it's irons
 		Pos			= Vector(0, 15, -4),
@@ -181,7 +181,7 @@ SWEP.IronSights = {
 SWEP.SprintAng				= Angle(30, -10, -20)
 SWEP.SprintPos				= Vector(3, 0, 0)
 
-SWEP.ActivePos				= Vector(0.33, 0, 0)
+SWEP.ActivePos				= Vector(0.33, -2, 0.33)
 SWEP.ActiveAng				= Angle(0, 0, -3)
 
 SWEP.CustomizeAng			= Angle(90, 0, 0)
@@ -214,13 +214,51 @@ SWEP.CamQCA					= 3
 SWEP.CamOffsetAng			= Angle(0, 0, 90)
 -------------------------- SOUNDS
 
-local path					= ")^weapons/arc9_ud/m16/"
-local common				= ")^weapons/arc9_ud/common/"
+local path					= ")^weapons/arccw_ud/m16/"
+local common				= ")^arccw_uc/common/"
+
+
+SWEP.ShootSound = {
+    path .. "fire-01.ogg",
+    path .. "fire-02.ogg",
+    path .. "fire-03.ogg",
+    path .. "fire-04.ogg",
+    path .. "fire-05.ogg",
+    path .. "fire-06.ogg"
+}
+
+SWEP.DistantShootSound = {
+    path .. "fire-dist-01.ogg",
+    path .. "fire-dist-02.ogg",
+    path .. "fire-dist-03.ogg",
+    path .. "fire-dist-04.ogg",
+    path .. "fire-dist-05.ogg",
+    path .. "fire-dist-06.ogg"
+}
+SWEP.DistantShootSoundIndoors = {
+    common .. "fire-dist-int-rifle-01.ogg",
+    common .. "fire-dist-int-rifle-02.ogg",
+    common .. "fire-dist-int-rifle-03.ogg",
+    common .. "fire-dist-int-rifle-04.ogg",
+    common .. "fire-dist-int-rifle-05.ogg",
+    common .. "fire-dist-int-rifle-06.ogg"
+}
+
 SWEP.FirstShootSound			= path .. "first.ogg"
-SWEP.ShootSound	 = {path .. "auto1.ogg", path .. "auto2.ogg", path .. "auto3.ogg", path .. "auto4.ogg"}
-SWEP.DistantShootSound			= path .. "dist.ogg"
-SWEP.ShootSoundSilencedFirst	= path .. "fire_sup.ogg"
-SWEP.ShootSoundSilenced = {path .. "fire_auto_sup_2.ogg", path .. "fire_auto_sup_3.ogg"}
+-- SWEP.FirstShootSoundSilenced = {
+--     path .. "fire-first-sup-01.ogg",
+--     path .. "fire-first-sup-02.ogg",
+--     path .. "fire-first-sup-03.ogg",
+--     path .. "fire-first-sup-04.ogg",
+--     path .. "fire-first-sup-05.ogg"
+-- }
+SWEP.ShootSoundSilenced = {
+    path .. "fire-sup-01.ogg",
+    path .. "fire-sup-02.ogg",
+    path .. "fire-sup-03.ogg",
+    path .. "fire-sup-04.ogg",
+    path .. "fire-sup-05.ogg"
+}
 SWEP.DistantShootSoundSilenced	= common .. "sup_tail.ogg"
 SWEP.DryFireSound				= path .. "dryfire.ogg"
 
@@ -302,19 +340,6 @@ SWEP.Animations = {
 			{s	= path .. "mech_last.ogg",			t = 0},
 		},
 	},
-	["fire_usas"] = {
-		Source				= "fire_usas",
-		Time				= 20 / 30,
-		ShellEjectAt				= 0.01,
-	},
-	["fire_empty_usas"] = {
-		Source				= "fire_empty_usas",
-		Time				= 20 / 30,
-		ShellEjectAt				= 0.01,
-		EventTable = {
-			{s	= path .. "mech_last.ogg",			t = 0},
-		},
-	},
 
 	["fire_cycle"] = {
 		Source				= "fire",
@@ -355,68 +380,6 @@ SWEP.Animations = {
 	["fix_empty"] = {
 		Source				= "fix_empty",
 		Time				= 45 / 30,
-		IKTimeLine = {
-			{
-				t				= 0,
-				lhik				= 1,
-				rhik				= 1
-			},
-			{
-				t				= 0.4,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 0.6,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 1,
-				lhik				= 1,
-				rhik				= 1
-			},
-		},
-		EventTable = {
-			{s	= path .. "chback.ogg",				t = 0.15},
-			{s	= common .. "cloth_4.ogg", 			t = 0.5},
-			{s	= path .. "chamber.ogg", 			t = 0.55},
-		},
-	},
-	["fix_100"] = {
-		Source				= "fix_100",
-		Time				= 50 / 30,
-		IKTimeLine = {
-			{
-				t				= 0,
-				lhik				= 1,
-				rhik				= 1
-			},
-			{
-				t				= 0.4,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 0.6,
-				lhik				= 0,
-				rhik				= 0
-			},
-			{
-				t				= 1,
-				lhik				= 1,
-				rhik				= 1
-			},
-		},
-		EventTable = {
-			{s	= path .. "chback.ogg",				t = 0.15},
-			{s	= common .. "cloth_4.ogg", 			t = 0.5},
-			{s	= path .. "chamber.ogg", 			t = 0.55},
-		},
-	},
-	["fix_empty_100"] = {
-		Source				= "fix_empty_100",
-		Time				= 50 / 30,
 		IKTimeLine = {
 			{
 				t				= 0,
