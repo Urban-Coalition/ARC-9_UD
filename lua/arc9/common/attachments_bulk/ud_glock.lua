@@ -64,7 +64,7 @@ The longer barrel improves precision but is awkward to handle.]]
 ATT.Category = {"ud_glock_slide"}
 
 ATT.DeployTimeMult						= 1.15
-ATT.BarrelLengthAdd						= 4		-- no equiv. in ARC-9
+ATT.BarrelLengthAdd						= 4		-- no equiv. in ARC9
 ATT.SwayMult							= 1.25
 ATT.SpreadMultHipFire					= 1.15
 ATT.AimDownSightsTimeMult				= 1.1
@@ -90,7 +90,7 @@ ATT.SpreadMult							= 0.25
 ATT.SwayMult							= 2
 ATT.RangeMaxMult						= 3
 ATT.DeployTimeMult						= 1.5
-ATT.BarrelLengthAdd						= 32		-- no equiv. in ARC-9
+ATT.BarrelLengthAdd						= 32		-- no equiv. in ARC9
 
 ARC9.LoadAttachment(ATT, "ud_glock_slide_carbine")
 
@@ -106,7 +106,7 @@ ATT.Category = {"ud_glock_slide"}
 ATT.RequireElements = {"ud_glock_frame_subcompact"}
 
 ATT.DrawTime							= 0.85
-ATT.BarrelLengthAdd						= -4		-- no equiv. in ARC-9
+ATT.BarrelLengthAdd						= -4		-- no equiv. in ARC9
 ATT.SwayMult							= 0.75
 ATT.SpreadMultHipFire					= 0.85
 ATT.AimDownSightsTimeMult				= 0.85

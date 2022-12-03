@@ -7,7 +7,7 @@ AddCSLuaFile()
 SWEP.Base					= "arc9_base"
 
 SWEP.Spawnable				= true
-SWEP.Category				= "ARC-9 - Urban Coalition"
+SWEP.Category				= "ARC9 - Urban Coalition"
 
 SWEP.PrintName				= "AMCAR"
 SWEP.TrueName				= "M16A2"
